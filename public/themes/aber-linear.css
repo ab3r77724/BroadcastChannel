@@ -286,7 +286,7 @@ article img {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 720px;
+  max-height: min(720px, calc(100vh - 220px));
   margin: 18px 0;
   border: 1px solid var(--aber-border);
   border-radius: var(--radius-md);
@@ -303,7 +303,7 @@ article img {
   width: auto !important;
   max-width: 100% !important;
   height: auto !important;
-  max-height: 720px;
+  max-height: min(720px, calc(100vh - 220px));
   object-fit: contain;
 }
 
@@ -342,7 +342,7 @@ article img {
   display: block;
   width: auto !important;
   max-width: 100%;
-  max-height: 520px;
+  max-height: min(520px, calc(100vh - 260px));
   margin: 0;
 }
 
@@ -360,7 +360,7 @@ article img {
 
   .content .image-list-container img {
     width: 100% !important;
-    max-height: 420px;
+    max-height: min(420px, calc(100vh - 180px));
   }
 }
 
@@ -382,7 +382,7 @@ article img {
 .image-wrapper img {
   width: 100%;
   height: auto;
-  max-height: 720px;
+  max-height: min(720px, calc(100vh - 220px));
   margin: 0;
   object-fit: contain;
 }
