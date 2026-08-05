@@ -39,18 +39,18 @@
   :root {
     --aber-accent: #606acc;
     --aber-accent-hover: #737dd8;
-    --aber-ink: #f2f3f5;
-    --aber-text: #d9dbe0;
-    --aber-muted: #aeb2bb;
-    --aber-subtle: #858a95;
-    --aber-surface: #070809;
-    --aber-raised: #15171b;
-    --aber-border: #2c3037;
-    --aber-border-strong: #454a54;
-    --aber-selection: #252b55;
-    --aber-code-bg: #1d2026;
-    --aber-code-text: #e0e3ff;
-    --soft-shadow: 0 2px 8px rgb(0 0 0 / 0.42);
+    --aber-ink: #e3e4e6;
+    --aber-text: #c6c8ce;
+    --aber-muted: #9b9ea6;
+    --aber-subtle: #6f727b;
+    --aber-surface: #050607;
+    --aber-raised: #0d0f12;
+    --aber-border: #202328;
+    --aber-border-strong: #30343b;
+    --aber-selection: #202447;
+    --aber-code-bg: #191b22;
+    --aber-code-text: #c7cbea;
+    --soft-shadow: 0 1px 2px rgb(0 0 0 / 0.32);
   }
 }
 
