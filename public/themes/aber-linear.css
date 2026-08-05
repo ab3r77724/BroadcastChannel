@@ -294,7 +294,76 @@ article img {
   background: var(--aber-raised);
 }
 
-/* When the site supplies a media wrapper, keep it fluid without cropping. */
+/* BroadcastChannel's base media rule expands every image to the full content
+ * width. The HTML already contains intrinsic width/height attributes, so keep
+ * normal images at their natural rendered size and only cap oversized media. */
+.content img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img),
+.content .image-preview-wrap img,
+.content .image-preview-button img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 720px;
+  object-fit: contain;
+}
+
+/* The clickable preview remains shrink-to-fit instead of stretching a small
+ * image to the full reading column. */
+.content .image-preview-button,
+.content .image-preview-wrap {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+/* Multi-image posts preserve each image's aspect ratio. */
+.content .image-list-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  margin: 18px 0;
+}
+
+.content .image-list-container .image-preview-button,
+.content .image-list-container .image-preview-wrap {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+  max-width: calc((100% - 12px) / 2);
+}
+
+.content .image-list-container img {
+  display: block;
+  width: auto !important;
+  max-width: 100%;
+  max-height: 520px;
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .content .image-list-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .content .image-list-container .image-preview-button,
+  .content .image-list-container .image-preview-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .content .image-list-container img {
+    width: 100% !important;
+    max-height: 420px;
+  }
+}
+
 .media,
 .post-media,
 .media-wrapper,
