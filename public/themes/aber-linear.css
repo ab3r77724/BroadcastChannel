@@ -498,7 +498,7 @@ input[type="text"]:focus {
   .post-entry img,
   .post-content img,
   article img {
-    max-height: none;
+    max-height: min(720px, calc(100vh - 140px));
   }
 }
 
