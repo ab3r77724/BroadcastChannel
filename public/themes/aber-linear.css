@@ -286,7 +286,7 @@ article img {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: min(720px, calc(100vh - 220px)) !important;
+  max-height: calc(100vh - 220px) !important;
   margin: 18px 0;
   border: 1px solid var(--aber-border);
   border-radius: var(--radius-md);
@@ -303,7 +303,7 @@ article img {
   width: auto !important;
   max-width: 100% !important;
   height: auto !important;
-  max-height: min(720px, calc(100vh - 220px)) !important;
+  max-height: calc(100vh - 220px) !important;
   object-fit: contain;
 }
 
@@ -342,7 +342,7 @@ article img {
   display: block;
   width: auto !important;
   max-width: 100%;
-  max-height: min(520px, calc(100vh - 260px)) !important;
+  max-height: calc(100vh - 260px) !important;
   margin: 0;
 }
 
@@ -360,7 +360,7 @@ article img {
 
   .content .image-list-container img {
     width: 100% !important;
-    max-height: min(420px, calc(100vh - 180px)) !important;
+    max-height: calc(100vh - 180px) !important;
   }
 }
 
@@ -382,7 +382,7 @@ article img {
 .image-wrapper img {
   width: 100%;
   height: auto;
-  max-height: min(720px, calc(100vh - 220px)) !important;
+  max-height: calc(100vh - 220px) !important;
   margin: 0;
   object-fit: contain;
 }
@@ -498,7 +498,7 @@ input[type="text"]:focus {
   .post-entry img,
   .post-content img,
   article img {
-    max-height: min(720px, calc(100vh - 140px)) !important;
+    max-height: calc(100vh - 140px) !important;
   }
 }
 
@@ -561,7 +561,7 @@ body > div > footer {
   width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
-  max-height: min(720px, calc(100vh - 220px)) !important;
+  max-height: calc(100vh - 220px) !important;
   object-fit: contain;
   object-position: top center;
 }
@@ -587,7 +587,7 @@ body > div > footer {
 .content .image-list-container img {
   width: 100% !important;
   max-width: 100% !important;
-  max-height: min(520px, calc(100vh - 260px)) !important;
+  max-height: calc(100vh - 260px) !important;
   margin: 0;
   object-fit: contain;
   object-position: top center;
@@ -600,7 +600,7 @@ body > div > footer {
   }
 
   .content .image-list-container img {
-    max-height: min(420px, calc(100vh - 180px)) !important;
+    max-height: calc(100vh - 180px) !important;
   }
 }
 
