@@ -540,6 +540,70 @@ body > div > footer {
   margin-inline: auto !important;
 }
 
+/* Preview-oriented media sizing: regular feed images should match the
+ * clickable preview treatment while remaining proportional. */
+.content .image-preview-wrap,
+.content .image-preview-button {
+  display: block;
+  width: min(100%, 640px) !important;
+  max-width: 100% !important;
+  margin: 18px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.content .image-preview-wrap img,
+.content .image-preview-button img,
+.content img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img) {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: min(720px, calc(100vh - 220px));
+  object-fit: contain;
+  object-position: top center;
+}
+
+/* Multi-image posts: equal preview slots, no crop or masonry reordering. */
+.content .image-list-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  margin: 18px 0;
+}
+
+.content .image-list-container .image-preview-wrap,
+.content .image-list-container .image-preview-button {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0;
+}
+
+.content .image-list-container img {
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: min(520px, calc(100vh - 260px));
+  margin: 0;
+  object-fit: contain;
+  object-position: top center;
+}
+
+@media (max-width: 560px) {
+  .content .image-preview-wrap,
+  .content .image-preview-button {
+    width: 100% !important;
+  }
+
+  .content .image-list-container img {
+    max-height: min(420px, calc(100vh - 180px));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
