@@ -1,0 +1,482 @@
+/*
+ * aBER Personal Timeline Theme
+ * Vercel × Notion posture: quiet, restrained, information-first.
+ * Designed for BroadcastChannel HEADER_INJECT.
+ */
+
+:root {
+  --aber-accent: #5e6ad2;
+  --aber-accent-hover: #4f5bc2;
+  --aber-ink: #1b1b1b;
+  --aber-text: #33353a;
+  --aber-muted: #6b6f76;
+  --aber-subtle: #8b9098;
+  --aber-surface: #fcfcfd;
+  --aber-raised: #ffffff;
+  --aber-border: #e6e7eb;
+  --aber-border-strong: #d4d6dc;
+  --aber-selection: #eef0ff;
+  --aber-code-bg: #f3f4f7;
+  --aber-code-text: #40445a;
+  --aber-success: #2e8b57;
+  --aber-danger: #c23b4a;
+
+  --font-main: "MI Sans", "苹方", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-secondary: "MI Sans", "苹方", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --font-display: "ia-writer-quattro-s", "MI Sans", "苹方", serif;
+
+  --width: 720px;
+  --body-padding-inline: 24px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --line: 1px solid var(--aber-border);
+  --soft-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --aber-accent: #606acc;
+    --aber-accent-hover: #737dd8;
+    --aber-ink: #e3e4e6;
+    --aber-text: #c6c8ce;
+    --aber-muted: #9b9ea6;
+    --aber-subtle: #6f727b;
+    --aber-surface: #0f0f11;
+    --aber-raised: #17181c;
+    --aber-border: #292b31;
+    --aber-border-strong: #3a3d45;
+    --aber-selection: #202447;
+    --aber-code-bg: #191b22;
+    --aber-code-text: #c7cbea;
+    --soft-shadow: 0 1px 2px rgb(0 0 0 / 0.24);
+  }
+}
+
+html {
+  background: var(--aber-surface);
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--aber-surface);
+  color: var(--aber-text);
+  font-family: var(--font-main);
+  font-size: 15px;
+  line-height: 1.7;
+  letter-spacing: -0.006em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+body.home,
+body.post,
+body.page,
+main,
+footer {
+  background-color: var(--aber-surface);
+}
+
+body > header,
+body > main,
+body > footer,
+header,
+main,
+footer {
+  width: min(calc(100% - (var(--body-padding-inline) * 2)), var(--width));
+  margin-inline: auto;
+}
+
+body > header,
+header {
+  padding-top: 64px;
+  padding-bottom: 28px;
+  border-bottom: var(--line);
+}
+
+header > a.title,
+header > a.title:visited {
+  color: var(--aber-ink);
+  text-decoration: none;
+}
+
+header > a.title > h1,
+header h1 {
+  margin: 0;
+  color: var(--aber-ink);
+  font-family: var(--font-main);
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+header > a.title > h1::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 7px;
+  margin-bottom: 3px;
+  border-radius: 50%;
+  background: var(--aber-accent);
+}
+
+header > nav,
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 18px;
+  color: var(--aber-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+header > nav a,
+header nav a {
+  color: var(--aber-muted);
+  text-decoration: none;
+}
+
+header > nav a:hover,
+header > nav a:focus-visible {
+  color: var(--aber-accent);
+}
+
+main {
+  padding-top: 42px;
+  padding-bottom: 56px;
+}
+
+main > h1,
+main > h2 {
+  margin: 0 0 32px;
+  color: var(--aber-ink);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+/* Feed: one calm reading column, not a stack of heavy cards. */
+.feed,
+ol.posts-feed,
+ul.posts-feed,
+.posts-feed {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.posts-feed > li,
+.posts-feed > li.post-entry,
+.post-entry {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 0;
+}
+
+.posts-feed article,
+.post-entry article {
+  position: relative;
+  margin: 0;
+  padding: 24px 0 28px;
+  border-top: var(--line);
+  background: transparent;
+}
+
+.posts-feed article:first-child,
+.post-entry:first-child article {
+  border-top-color: transparent;
+  padding-top: 0;
+}
+
+/* Quiet metadata row. */
+.posts-feed article > p:first-child,
+.post-entry article > p:first-child,
+.post-entry .post-meta,
+.post-entry time {
+  margin: 0 0 10px;
+  color: var(--aber-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+.posts-feed article > p:first-child a,
+.post-entry time,
+.post-entry .post-meta a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.posts-feed article > p:first-child a:hover,
+.post-entry time:hover,
+.post-entry .post-meta a:hover {
+  color: var(--aber-accent);
+}
+
+/* Post body: readable text, restrained links. */
+.posts-feed article > p,
+.post-entry p,
+.post-entry .post-content {
+  color: var(--aber-text);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.posts-feed article > p:not(:first-child),
+.post-entry p:not(:first-child) {
+  margin: 0 0 12px;
+}
+
+a,
+a:visited {
+  color: var(--aber-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--aber-accent-hover);
+}
+
+/* Hashtags and post labels become compact metadata, not giant badges. */
+.tags,
+.post-tags,
+p.tags.post-tags,
+.posts-feed .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  color: var(--aber-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.tags a,
+.post-tags a,
+p.tags.post-tags a {
+  color: var(--aber-muted);
+  text-decoration: none;
+}
+
+.tags a:hover,
+.post-tags a:hover,
+p.tags.post-tags a:hover {
+  color: var(--aber-accent);
+}
+
+/* Images: preserve intrinsic aspect ratio; never force a universal crop. */
+.posts-feed img,
+.post-entry img,
+.post-content img,
+article img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 720px;
+  margin: 18px 0;
+  border: 1px solid var(--aber-border);
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  background: var(--aber-raised);
+}
+
+/* When the site supplies a media wrapper, keep it fluid without cropping. */
+.media,
+.post-media,
+.media-wrapper,
+.image-wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: 18px 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--aber-raised);
+}
+
+.media img,
+.post-media img,
+.media-wrapper img,
+.image-wrapper img {
+  width: 100%;
+  height: auto;
+  max-height: 720px;
+  margin: 0;
+  object-fit: contain;
+}
+
+pre,
+pre.code,
+.highlight {
+  overflow-x: auto;
+  margin: 20px 0;
+  padding: 16px;
+  border: 1px solid var(--aber-border);
+  border-radius: var(--radius-md);
+  background: var(--aber-code-bg);
+  color: var(--aber-code-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+code {
+  padding: 0.12em 0.35em;
+  border-radius: var(--radius-sm);
+  background: var(--aber-code-bg);
+  color: var(--aber-code-text);
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+}
+
+blockquote {
+  margin: 20px 0;
+  padding: 4px 0 4px 16px;
+  border-left: 2px solid var(--aber-border-strong);
+  color: var(--aber-muted);
+  font-family: var(--font-main);
+}
+
+hr {
+  height: 1px;
+  margin: 32px 0;
+  border: 0;
+  background: var(--aber-border);
+}
+
+footer {
+  padding-top: 24px;
+  padding-bottom: 48px;
+  border-top: var(--line);
+  color: var(--aber-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+input[type="search"],
+input[type="text"] {
+  min-height: 36px;
+  border: 1px solid var(--aber-border);
+  border-radius: var(--radius-md);
+  background: var(--aber-raised);
+  color: var(--aber-ink);
+  padding: 7px 10px;
+  outline: none;
+}
+
+input[type="search"]:focus,
+input[type="text"]:focus {
+  border-color: var(--aber-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--aber-accent) 16%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--aber-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --body-padding-inline: 16px;
+  }
+
+  body > header,
+  header {
+    padding-top: 36px;
+    padding-bottom: 22px;
+  }
+
+  main {
+    padding-top: 30px;
+  }
+
+  main > h1,
+  main > h2 {
+    font-size: 24px;
+  }
+
+  .posts-feed article,
+  .post-entry article {
+    padding: 20px 0 24px;
+  }
+
+  .posts-feed img,
+  .post-entry img,
+  .post-content img,
+  article img {
+    max-height: none;
+  }
+}
+
+/* Centering correction: keep the timeline column centered in the viewport. */
+body {
+  margin: 0 !important;
+  padding-inline: 0 !important;
+}
+
+body > header,
+body > main,
+body > footer,
+body > div,
+body > div > header,
+body > div > main,
+body > div > footer,
+header,
+main,
+footer {
+  box-sizing: border-box;
+  width: min(calc(100% - (var(--body-padding-inline) * 2)), var(--width)) !important;
+  max-width: var(--width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Do not let a full-width site shell inherit the reading-column width. */
+body > div {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+}
+
+body > div > header,
+body > div > main,
+body > div > footer {
+  width: min(calc(100% - (var(--body-padding-inline) * 2)), var(--width)) !important;
+  max-width: var(--width) !important;
+  margin-inline: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
