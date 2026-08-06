@@ -678,7 +678,6 @@ body.feed .post-meta a:visited {
 .content .tgme_widget_message_link_preview:has(.link_preview_site_name) {
   padding: 0.55rem;
   border: 1px solid var(--border-color);
-  border-left: 3px solid #77776f;
   background: #fff;
 }
 

@@ -204,7 +204,7 @@ Cross-document CSS View Transitions are enabled with `navigation: auto`. Keep `s
 
 ## Elevation & Depth
 
-Base is flat: `--shadow-soft` is `none`, panel surfaces stay on the page background, and hierarchy comes from whitespace, text contrast, one-pixel borders or dashed rules, plus occasional 3px accent rails on expandable content and text link previews.
+Base is flat: `--shadow-soft` is `none`, panel surfaces stay on the page background, and hierarchy comes from whitespace, text contrast, one-pixel borders or dashed rules, plus one-pixel panel borders on expandable content and text link previews.
 
 Sepia adds only shallow paper depth through four low-alpha shadow steps. Use it on the avatar, description, small navigation surfaces, reactions, pagination, and media. Aria and Terminal keep `--shadow-soft: none`; their hierarchy comes from grids, borders, surfaces, and spacing. HN News and ZAE rely primarily on flat color, rules, and typography; TG Channel may distinguish the light content surface from its cool page backdrop, but the post sequence must remain one coherent feed rather than a generic dashboard card grid. Do not add heavier shadows.
 

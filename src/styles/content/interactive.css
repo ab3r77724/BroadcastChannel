@@ -1,7 +1,7 @@
 @layer components {
   .content {
     .tg-expandable {
-      @apply relative rounded-panel border-l-[3px] border-accent bg-surface p-1.5 pl-2.5 pr-[30px];
+      @apply relative rounded-panel border border-line bg-surface p-1.5 pl-2.5 pr-[30px];
       margin: 16px 0;
       min-height: 3.6em;
       font-size: 0.8em;

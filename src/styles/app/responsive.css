@@ -65,6 +65,9 @@
     .mobile-search .search-input {
       font-size: 16px;
     }
+    .directory-list {
+      grid-template-columns: 1fr;
+    }
   }
 }
 

@@ -156,13 +156,36 @@
 
   .directory h1 {
     margin-top: 0;
-    font-size: 1.4em;
+    margin-bottom: 0;
+    font-size: 1.65em;
   }
 
+  /* Directory pages share .tags class with post metadata, but need their own layout. */
+  ul.tags.directory-list,
   .directory-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
     align-items: stretch;
-    margin: 1.25rem 0 0;
+    margin: 1.5rem 0 0;
     padding: 0;
     list-style: none;
+    font-family: var(--font-main);
+    font-size: 1.3em;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  ul.tags.directory-list li,
+  .directory-list li {
+    min-width: 0;
+  }
+
+  ul.tags.directory-list a,
+  .directory-list a {
+    display: flex;
+    min-height: 4.25rem;
+    align-items: center;
+    overflow-wrap: anywhere;
   }
 }

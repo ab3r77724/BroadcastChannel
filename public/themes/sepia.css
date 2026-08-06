@@ -331,10 +331,15 @@ hr {
   background: var(--code-background-color);
 }
 
-.content blockquote,
+.content blockquote {
+  border-left-color: var(--accent-color);
+  background: var(--surface-color);
+}
+
 .content .tg-expandable,
 .content .tgme_widget_message_link_preview:has(.link_preview_site_name) {
-  border-left-color: var(--accent-color);
+  border: 1px solid var(--border-color);
+  border-left-width: 1px;
   background: var(--surface-color);
 }
 

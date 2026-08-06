@@ -768,7 +768,7 @@ hr {
 
 .content .tg-expandable,
 .content .tgme_widget_message_link_preview:has(.link_preview_site_name) {
-  border-left-color: var(--terminal-accent);
+  border: 1px solid var(--border-color);
   border-radius: 0;
   background: var(--terminal-surface);
   box-shadow: none;

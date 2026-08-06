@@ -374,15 +374,13 @@ hr {
   margin-bottom: 0;
 }
 
-/* Tags / reactions stay compact metadata. */
+/* Post metadata tags stay compact; directory pages use .directory-list overrides. */
 .post-reactions,
-.post-tags,
-.tags {
+.post-tags {
   margin-top: 0.85rem;
   padding-top: 0;
 }
 
-.tags,
 .post-tags {
   gap: 0.4rem;
   color: var(--muted-color);
@@ -391,16 +389,64 @@ hr {
   line-height: 1.4;
 }
 
-.tags a:link,
-.tags a:visited,
 .post-tags a:link,
 .post-tags a:visited {
   color: var(--muted-color);
   text-decoration: none;
 }
 
-.tags a:hover,
 .post-tags a:hover {
+  color: var(--accent-color);
+}
+
+.directory h1 {
+  margin: 0;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--heading-color);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+ul.tags.directory-list,
+.directory-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 0.35rem;
+  color: var(--text-color);
+  font-family: var(--font-main);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+ul.tags.directory-list li,
+.directory-list li {
+  min-width: 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+ul.tags.directory-list a,
+.directory-list a {
+  display: flex;
+  min-height: 4.5rem;
+  padding: 0.35rem 0.1rem;
+  align-items: center;
+  color: var(--text-color);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+ul.tags.directory-list a:visited,
+.directory-list a:visited {
+  color: var(--text-color);
+}
+
+ul.tags.directory-list a:hover,
+.directory-list a:hover {
   color: var(--accent-color);
 }
 
@@ -515,7 +561,8 @@ hr {
 }
 
 .content .tgme_widget_message_link_preview:has(.link_preview_site_name) {
-  border-left-color: var(--accent-color);
+  border: 1px solid var(--border-color);
+  border-left-width: 1px;
   background: var(--surface-color);
 }
 
@@ -703,6 +750,17 @@ hr {
 
   .post-entry {
     padding: 1.25rem 0 1.45rem;
+  }
+
+  ul.tags.directory-list,
+  .directory-list {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  ul.tags.directory-list a,
+  .directory-list a {
+    min-height: 4.75rem;
   }
 
   /* Two-up on small screens, still height-capped with auto width. */

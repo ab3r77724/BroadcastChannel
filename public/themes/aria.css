@@ -544,7 +544,6 @@ hr {
 .content blockquote,
 .content .tg-expandable {
   border: 1px dashed var(--border-color);
-  border-left: 3px solid var(--heading-color);
   border-radius: var(--radius-panel);
   background: var(--surface-color);
 }
