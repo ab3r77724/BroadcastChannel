@@ -1,208 +1,311 @@
 /*
  * aBER Personal Timeline Theme
  * Vercel × Notion posture: quiet, restrained, information-first.
- * Designed for BroadcastChannel HEADER_INJECT.
+ * BroadcastChannel Base override for HEADER_INJECT.
  */
 
 :root {
-  --aber-accent: #5e6ad2;
-  --aber-accent-hover: #4f5bc2;
-  --aber-ink: #1b1b1b;
-  --aber-text: #33353a;
-  --aber-muted: #6b6f76;
-  --aber-subtle: #8b9098;
-  --aber-surface: #fcfcfd;
-  --aber-raised: #ffffff;
-  --aber-border: #e6e7eb;
-  --aber-border-strong: #d4d6dc;
-  --aber-selection: #eef0ff;
-  --aber-code-bg: #f3f4f7;
-  --aber-code-text: #40445a;
-  --aber-success: #2e8b57;
-  --aber-danger: #c23b4a;
-
-  --font-main: "MI Sans", "苹方", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-secondary: "MI Sans", "苹方", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-  --font-display: "ia-writer-quattro-s", "MI Sans", "苹方", serif;
-
+  /* Base body/media consume these layout tokens. */
   --width: 720px;
   --body-padding-inline: 24px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
-  --line: 1px solid var(--aber-border);
-  --soft-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  --box-margin: 0px;
+
+  --font-main: 'MI Sans', '苹方', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-secondary: 'MI Sans', '苹方', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-scale: 15px;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --background-color: #fcfcfd;
+  --heading-color: #1b1b1b;
+  --text-color: #33353a;
+  --link-color: #5e6ad2;
+  --visited-color: #6b74c8;
+  --link-hover-color: #4f5bc2;
+  --accent-color: #5e6ad2;
+  --border-color: #e6e7eb;
+  --control-border: #d4d6dc;
+  --muted-color: #6b6f76;
+  --surface-color: #ffffff;
+  --code-background-color: #f3f4f7;
+  --code-color: #40445a;
+  --blockquote-color: #6b6f76;
+  --focus-color: #5e6ad2;
+  --reaction-paid-color: #6b5000;
+  --reaction-paid-border-color: color-mix(in srgb, var(--reaction-paid-color) 34%, transparent);
+  --reaction-paid-background-color: color-mix(in srgb, #d5a000 12%, var(--background-color));
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04);
+  --radius-panel: 6px;
+  --radius-chip: 4px;
+  --radius-media: 6px;
+
+  /* Private aliases for local chrome only. */
+  --aber-subtle: #8b9098;
+  --aber-selection: #eef0ff;
+  --aber-border-strong: #d4d6dc;
+  --aber-focus-ring: color-mix(in srgb, var(--accent-color) 16%, transparent);
+}
+
+/* Manual theme wins over system preference when data-theme is set. */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --background-color: #050607;
+  --heading-color: #e3e4e6;
+  --text-color: #c6c8ce;
+  --link-color: #606acc;
+  --visited-color: #7a83d4;
+  --link-hover-color: #737dd8;
+  --accent-color: #606acc;
+  --border-color: #202328;
+  --control-border: #30343b;
+  --muted-color: #9b9ea6;
+  --surface-color: #0d0f12;
+  --code-background-color: #191b22;
+  --code-color: #c7cbea;
+  --blockquote-color: #9b9ea6;
+  --focus-color: #737dd8;
+  --reaction-paid-color: #f0c45a;
+  --reaction-paid-border-color: color-mix(in srgb, var(--reaction-paid-color) 48%, transparent);
+  --reaction-paid-background-color: color-mix(in srgb, var(--reaction-paid-color) 12%, var(--background-color));
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.32);
+
+  --aber-subtle: #6f727b;
+  --aber-selection: #202447;
+  --aber-border-strong: #30343b;
+}
+
+:root[data-theme='dark'] #back-to-top img {
+  filter: invert(1);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --aber-accent: #606acc;
-    --aber-accent-hover: #737dd8;
-    --aber-ink: #e3e4e6;
-    --aber-text: #c6c8ce;
-    --aber-muted: #9b9ea6;
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --background-color: #050607;
+    --heading-color: #e3e4e6;
+    --text-color: #c6c8ce;
+    --link-color: #606acc;
+    --visited-color: #7a83d4;
+    --link-hover-color: #737dd8;
+    --accent-color: #606acc;
+    --border-color: #202328;
+    --control-border: #30343b;
+    --muted-color: #9b9ea6;
+    --surface-color: #0d0f12;
+    --code-background-color: #191b22;
+    --code-color: #c7cbea;
+    --blockquote-color: #9b9ea6;
+    --focus-color: #737dd8;
+    --reaction-paid-color: #f0c45a;
+    --reaction-paid-border-color: color-mix(in srgb, var(--reaction-paid-color) 48%, transparent);
+    --reaction-paid-background-color: color-mix(in srgb, var(--reaction-paid-color) 12%, var(--background-color));
+    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.32);
+
     --aber-subtle: #6f727b;
-    --aber-surface: #050607;
-    --aber-raised: #0d0f12;
-    --aber-border: #202328;
-    --aber-border-strong: #30343b;
     --aber-selection: #202447;
-    --aber-code-bg: #191b22;
-    --aber-code-text: #c7cbea;
-    --soft-shadow: 0 1px 2px rgb(0 0 0 / 0.32);
+    --aber-border-strong: #30343b;
+  }
+
+  :root:not([data-theme='light']) #back-to-top img {
+    filter: invert(1);
   }
 }
 
 html {
-  background: var(--aber-surface);
   color-scheme: light dark;
+  background: var(--background-color);
 }
 
 body {
-  background: var(--aber-surface);
-  color: var(--aber-text);
-  font-family: var(--font-main);
-  font-size: 15px;
+  padding-inline: var(--body-padding-inline);
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-secondary);
+  font-size: var(--font-scale);
   line-height: 1.7;
   letter-spacing: -0.006em;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-body,
-body.home,
-body.post,
-body.page,
-main,
-footer {
-  background-color: var(--aber-surface);
+::selection {
+  background: var(--aber-selection);
+  color: var(--heading-color);
 }
 
-body > header,
-body > main,
-body > footer,
-header,
-main,
-footer {
-  width: min(calc(100% - (var(--body-padding-inline) * 2)), var(--width));
-  margin-inline: auto;
+a:link {
+  color: var(--link-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
-body > header,
-header {
-  padding-top: 64px;
-  padding-bottom: 28px;
-  border-bottom: var(--line);
+a:visited {
+  color: var(--visited-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
-header > a.title,
-header > a.title:visited {
-  color: var(--aber-ink);
+a:hover {
+  color: var(--link-hover-color);
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+.image-preview-button:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 3px;
+}
+
+hr {
+  height: 1px;
+  margin: 2rem 0;
+  border: 0;
+  background: var(--border-color);
+}
+
+/* Header: quiet identity row. */
+.site-header {
+  margin-bottom: 0;
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.site-header > .title,
+.site-header > .title:visited {
+  color: var(--heading-color);
   text-decoration: none;
 }
 
-header > a.title > h1,
-header h1 {
-  margin: 0;
-  color: var(--aber-ink);
+.site-header > .title:hover {
+  color: var(--heading-color);
+  text-decoration: none;
+}
+
+.site-header > .title > h1 {
+  color: var(--heading-color);
   font-family: var(--font-main);
-  font-size: 25px;
+  font-size: 1.55rem;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.025em;
 }
 
-header > a.title > h1::after {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-left: 7px;
-  margin-bottom: 3px;
-  border-radius: 50%;
-  background: var(--aber-accent);
+.channel-avatar {
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
 }
 
-header > nav,
-header nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  margin-top: 18px;
-  color: var(--aber-muted);
+.channel-description {
+  color: var(--muted-color);
+  font-size: 0.92em;
+  line-height: 1.55;
+}
+
+.social-links a,
+.social-links .theme-toggle {
+  color: var(--aber-subtle);
+  opacity: 0.9;
+}
+
+.social-links a:hover,
+.social-links .theme-toggle:hover {
+  color: var(--accent-color);
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* Navigation: mono micro-labels. */
+.site-navigation {
+  gap: 0.75rem;
+  padding: 0.85rem 0 0;
+  border-bottom: 0;
+  color: var(--muted-color);
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.02em;
 }
 
-header > nav a,
-header nav a {
-  color: var(--aber-muted);
+.site-header > .site-navigation {
+  margin-top: 0.15rem;
+}
+
+.site-navigation a,
+.site-navigation a:visited {
+  color: var(--muted-color);
   text-decoration: none;
 }
 
-header > nav a:hover,
-header > nav a:focus-visible {
-  color: var(--aber-accent);
+.site-navigation a:hover,
+.site-navigation a[aria-current='page'] {
+  color: var(--accent-color);
+  text-decoration: none;
 }
 
-main {
-  padding-top: 42px;
-  padding-bottom: 56px;
+/* Search: quiet field, accent focus ring. */
+.desktop-search,
+.mobile-search form {
+  border-color: var(--control-border);
+  background: var(--surface-color);
+  box-shadow: none;
 }
 
-main > h1,
-main > h2 {
-  margin: 0 0 32px;
-  color: var(--aber-ink);
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+.search-field {
+  color: var(--muted-color);
 }
 
-/* Feed: one calm reading column, not a stack of heavy cards. */
-.feed,
-ol.posts-feed,
-ul.posts-feed,
+.search-input {
+  color: var(--text-color);
+}
+
+.search-input::placeholder {
+  color: var(--aber-subtle);
+}
+
+.desktop-search:focus-within,
+.mobile-search form:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--aber-focus-ring);
+}
+
+.search-submit:hover {
+  color: var(--accent-color);
+}
+
+#main-content {
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Feed: calm reading column, no card stack. */
 .posts-feed {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.posts-feed > li,
-.posts-feed > li.post-entry,
 .post-entry {
   margin: 0;
-  padding: 0;
-  list-style: none;
-  border: 0;
-}
-
-.posts-feed article,
-.post-entry article {
-  position: relative;
-  margin: 0;
-  padding: 24px 0 28px;
-  border-top: var(--line);
+  padding: 1.5rem 0 1.75rem;
+  border-bottom: 1px solid var(--border-color);
   background: transparent;
 }
 
-.posts-feed article:first-child,
-.post-entry:first-child article {
-  border-top-color: transparent;
-  padding-top: 0;
+.posts-feed > li:last-child .post-entry {
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 
-/* Quiet metadata row. */
-.posts-feed article > p:first-child,
-.post-entry article > p:first-child,
-.post-entry .post-meta,
-.post-entry time {
-  margin: 0 0 10px;
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.7rem;
   color: var(--aber-subtle);
   font-family: var(--font-mono);
   font-size: 11px;
@@ -210,406 +313,459 @@ ul.posts-feed,
   letter-spacing: 0.01em;
 }
 
-.posts-feed article > p:first-child a,
-.post-entry time,
-.post-entry .post-meta a {
+.post-meta p {
+  margin: 0;
+  color: inherit;
+}
+
+.post-meta a,
+.post-meta a:link,
+.post-meta a:visited {
   color: inherit;
   text-decoration: none;
 }
 
-.posts-feed article > p:first-child a:hover,
-.post-entry time:hover,
-.post-entry .post-meta a:hover {
-  color: var(--aber-accent);
+.post-meta a:hover {
+  color: var(--accent-color);
 }
 
-/* Post body: readable text, restrained links. */
-.posts-feed article > p,
-.post-entry p,
-.post-entry .post-content {
-  color: var(--aber-text);
+/* Base hides this; re-enable as the quiet timeline accent. */
+.timeline-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  opacity: 0.85;
+}
+
+.hn-story h2 {
+  margin: 0 0 0.55rem;
+  color: var(--heading-color);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.hn-story a,
+.hn-story a:visited {
+  color: var(--heading-color);
+  text-decoration: none;
+}
+
+.hn-story a:hover {
+  color: var(--accent-color);
+}
+
+.post-content {
+  padding-top: 0;
+  color: var(--text-color);
   font-size: 15px;
   line-height: 1.75;
 }
 
-.posts-feed article > p:not(:first-child),
-.post-entry p:not(:first-child) {
-  margin: 0 0 12px;
+.post-content p {
+  margin: 0 0 0.85rem;
 }
 
-a,
-a:visited {
-  color: var(--aber-accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+.post-content p:last-child {
+  margin-bottom: 0;
 }
 
-a:hover,
-a:focus-visible {
-  color: var(--aber-accent-hover);
-}
-
-/* Hashtags and post labels become compact metadata, not giant badges. */
-.tags,
+/* Tags / reactions stay compact metadata. */
+.post-reactions,
 .post-tags,
-p.tags.post-tags,
-.posts-feed .tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 12px 0 0;
-  color: var(--aber-muted);
+.tags {
+  margin-top: 0.85rem;
+  padding-top: 0;
+}
+
+.tags,
+.post-tags {
+  gap: 0.4rem;
+  color: var(--muted-color);
   font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1.4;
 }
 
-.tags a,
-.post-tags a,
-p.tags.post-tags a {
-  color: var(--aber-muted);
+.tags a:link,
+.tags a:visited,
+.post-tags a:link,
+.post-tags a:visited {
+  color: var(--muted-color);
   text-decoration: none;
 }
 
 .tags a:hover,
-.post-tags a:hover,
-p.tags.post-tags a:hover {
-  color: var(--aber-accent);
+.post-tags a:hover {
+  color: var(--accent-color);
 }
 
-/* Images: preserve intrinsic aspect ratio; never force a universal crop. */
-.posts-feed img,
-.post-entry img,
-.post-content img,
-article img {
-  display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: calc(100vh - 220px) !important;
-  margin: 18px 0;
-  border: 1px solid var(--aber-border);
-  border-radius: var(--radius-md);
-  object-fit: contain;
-  background: var(--aber-raised);
+.reaction {
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  background: var(--surface-color);
+  color: var(--muted-color);
+  box-shadow: none;
 }
 
-/* BroadcastChannel's base media rule expands every image to the full content
- * width. The HTML already contains intrinsic width/height attributes, so keep
- * normal images at their natural rendered size and only cap oversized media. */
-.content img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img),
-.content .image-preview-wrap img,
-.content .image-preview-button img {
-  width: auto !important;
-  max-width: 100% !important;
-  height: auto !important;
-  max-height: calc(100vh - 220px) !important;
-  object-fit: contain;
+.reaction-paid {
+  border-color: var(--reaction-paid-border-color);
+  background: var(--reaction-paid-background-color);
+  color: var(--reaction-paid-color);
 }
 
-/* The clickable preview remains shrink-to-fit instead of stretching a small
- * image to the full reading column. */
-.content .image-preview-button,
-.content .image-preview-wrap {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  text-align: left;
-}
-
-/* Multi-image posts preserve each image's aspect ratio. */
-.content .image-list-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-  max-width: 100%;
-  margin: 18px 0;
-}
-
-.content .image-list-container .image-preview-button,
-.content .image-list-container .image-preview-wrap {
-  flex: 0 1 auto;
-  min-width: 0;
-  margin: 0;
-  max-width: calc((100% - 12px) / 2);
-}
-
-.content .image-list-container img {
-  display: block;
-  width: auto !important;
-  max-width: 100%;
-  max-height: calc(100vh - 260px) !important;
-  margin: 0;
-}
-
-@media (max-width: 560px) {
-  .content .image-list-container {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .content .image-list-container .image-preview-button,
-  .content .image-list-container .image-preview-wrap {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .content .image-list-container img {
-    width: 100% !important;
-    max-height: calc(100vh - 180px) !important;
-  }
-}
-
-.media,
-.post-media,
-.media-wrapper,
-.image-wrapper {
-  width: 100%;
-  max-width: 100%;
-  margin: 18px 0;
-  overflow: hidden;
-  border-radius: var(--radius-md);
-  background: var(--aber-raised);
-}
-
-.media img,
-.post-media img,
-.media-wrapper img,
-.image-wrapper img {
-  width: 100%;
-  height: auto;
-  max-height: calc(100vh - 220px) !important;
-  margin: 0;
-  object-fit: contain;
-}
-
-pre,
-pre.code,
-.highlight {
-  overflow-x: auto;
-  margin: 20px 0;
-  padding: 16px;
-  border: 1px solid var(--aber-border);
-  border-radius: var(--radius-md);
-  background: var(--aber-code-bg);
-  color: var(--aber-code-text);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.65;
-}
-
-code {
-  padding: 0.12em 0.35em;
-  border-radius: var(--radius-sm);
-  background: var(--aber-code-bg);
-  color: var(--aber-code-text);
-  font-family: var(--font-mono);
-  font-size: 0.88em;
-}
-
-pre code {
-  padding: 0;
-  background: transparent;
-}
-
-blockquote {
-  margin: 20px 0;
-  padding: 4px 0 4px 16px;
-  border-left: 2px solid var(--aber-border-strong);
-  color: var(--aber-muted);
-  font-family: var(--font-main);
-}
-
-hr {
-  height: 1px;
-  margin: 32px 0;
-  border: 0;
-  background: var(--aber-border);
-}
-
-footer {
-  padding-top: 24px;
-  padding-bottom: 48px;
-  border-top: var(--line);
-  color: var(--aber-subtle);
+.pagination {
+  margin-top: 1.75rem;
+  color: var(--muted-color);
   font-family: var(--font-mono);
   font-size: 11px;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
+.pagination a,
+.pagination a:visited {
+  color: var(--muted-color);
+  text-decoration: none;
 }
 
-input[type="search"],
-input[type="text"] {
-  min-height: 36px;
-  border: 1px solid var(--aber-border);
-  border-radius: var(--radius-md);
-  background: var(--aber-raised);
-  color: var(--aber-ink);
-  padding: 7px 10px;
-  outline: none;
+.pagination a:hover {
+  color: var(--accent-color);
 }
 
-input[type="search"]:focus,
-input[type="text"]:focus {
-  border-color: var(--aber-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--aber-accent) 16%, transparent);
+/* Footer: mono microcopy. */
+.site-footer {
+  margin-top: 1.5rem;
+  padding: 1.25rem 0 2rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--aber-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.01em;
 }
 
-:focus-visible {
-  outline: 2px solid var(--aber-accent);
-  outline-offset: 3px;
+.site-footer a,
+.site-footer a:visited {
+  color: inherit;
 }
 
-@media (max-width: 760px) {
-  :root {
-    --body-padding-inline: 16px;
-  }
-
-  body > header,
-  header {
-    padding-top: 36px;
-    padding-bottom: 22px;
-  }
-
-  main {
-    padding-top: 30px;
-  }
-
-  main > h1,
-  main > h2 {
-    font-size: 24px;
-  }
-
-  .posts-feed article,
-  .post-entry article {
-    padding: 20px 0 24px;
-  }
-
-  .posts-feed img,
-  .post-entry img,
-  .post-content img,
-  article img {
-    max-height: calc(100vh - 140px) !important;
-  }
+.site-footer a:hover {
+  color: var(--accent-color);
 }
 
-/* Centering correction: keep the timeline column centered in the viewport. */
-body {
-  margin: 0 !important;
-  padding-inline: 0 !important;
+#back-to-top {
+  border-color: var(--control-border);
+  background: var(--surface-color);
+  box-shadow: var(--shadow-soft);
 }
 
-body > header,
-body > main,
-body > footer,
-body > div,
-body > div > header,
-body > div > main,
-body > div > footer,
-header,
-main,
-footer {
-  box-sizing: border-box;
-  width: min(calc(100% - (var(--body-padding-inline) * 2)), var(--width)) !important;
-  max-width: var(--width) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+/* Content chrome: quiet code / quotes / tables. */
+.content pre {
+  margin: 1.15rem 0;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-panel);
+  background: var(--code-background-color);
+  color: var(--code-color);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  line-height: 1.65;
+  box-shadow: none;
 }
 
-/* Do not let a full-width site shell inherit the reading-column width. */
-body > div {
-  width: 100% !important;
-  max-width: none !important;
-  margin-inline: 0 !important;
+.highlight pre,
+.code pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
-body > div > header,
-body > div > main,
-body > div > footer {
-  width: min(calc(100% - (var(--body-padding-inline) * 2)), var(--width)) !important;
-  max-width: var(--width) !important;
-  margin-inline: auto !important;
+.content :not(pre) > code {
+  padding: 0.12em 0.35em;
+  border-radius: var(--radius-chip);
+  background: var(--code-background-color);
+  color: var(--code-color);
+  font-family: var(--font-mono);
+  font-size: 0.88em;
 }
 
-/* Preview-oriented media sizing: regular feed images should match the
- * clickable preview treatment while remaining proportional. */
-.content .image-preview-wrap,
-.content .image-preview-button {
-  display: block;
-  width: min(100%, 640px) !important;
+.content blockquote {
+  margin: 1.15rem 0;
+  padding: 0.15rem 0 0.15rem 0.95rem;
+  border-left: 2px solid var(--aber-border-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--blockquote-color);
+  font-style: normal;
+}
+
+.content table tr {
+  border-top: 1px solid var(--border-color);
+  background: var(--surface-color);
+}
+
+.content table tr:nth-child(2n),
+.content table tr th {
+  background: var(--code-background-color);
+}
+
+.content .tgme_widget_message_link_preview:has(.link_preview_site_name) {
+  border-left-color: var(--accent-color);
+  background: var(--surface-color);
+}
+
+/* Media strategy A: keep intrinsic size; only cap oversized media.
+ * Portrait feed previews must shrink by height on wide/landscape viewports.
+ * Critical: keep width:auto (never width:100%) so max-height can shrink used
+ * width with the aspect ratio. Base forces full-column width otherwise.
+ *
+ * DOM note: each photo is button.image-preview-button.image-preview-wrap + sibling
+ * .modal. Single-image lists have only one .image-preview-button. Multi rules MUST
+ * be scoped with :has(button ~ button) so their high-specificity img:not(...) chain
+ * cannot clobber single-image max-height.
+ */
+:root {
+  /* Reading-friendly cap — never near full viewport height. */
+  --aber-media-max-height: min(65dvh, 36rem, calc(100svh - 12rem));
+  --aber-media-list-max-height: min(52dvh, 28rem, calc(100svh - 16rem));
+}
+
+/* Default: any content image, shrink-wrap + center. */
+.content img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img),
+.content .image-preview-wrap img,
+.content .image-preview-button img {
+  display: block !important;
+  width: auto !important;
   max-width: 100% !important;
-  margin: 18px 0;
+  height: auto !important;
+  max-height: var(--aber-media-max-height) !important;
+  margin: 1rem auto !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-media);
+  object-fit: contain;
+  object-position: center;
+  background: var(--surface-color);
+  box-shadow: none;
+}
+
+/* Base sets preview wrap to full width. Size the hit-target to the capped
+ * image so tall portraits do not claim the whole content column first. */
+.content .image-preview-button,
+.content .image-preview-wrap {
+  display: block !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  max-height: var(--aber-media-max-height) !important;
+  height: auto !important;
+  margin-block: 0;
+  margin-inline: auto !important;
   padding: 0;
   border: 0;
   background: transparent;
-  text-align: left;
+  text-align: center;
 }
 
-.content .image-preview-wrap img,
 .content .image-preview-button img,
-.content img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img) {
-  display: block;
-  width: 100% !important;
+.content .image-preview-wrap img {
+  margin: 0 auto !important;
+  width: auto !important;
   max-width: 100% !important;
   height: auto !important;
-  max-height: calc(100vh - 220px) !important;
-  object-fit: contain;
-  object-position: top center;
+  max-height: var(--aber-media-max-height) !important;
 }
 
-/* Multi-image posts: equal preview slots, no crop or masonry reordering. */
-.content .image-list-container {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 12px;
+/* Multi-image shell: centered flex group, never masonry stretch. */
+.content .image-list-container:has(.image-preview-button ~ .image-preview-button) {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem;
   width: 100%;
   max-width: 100%;
-  margin: 18px 0;
+  margin: 1rem auto;
+  grid-template-columns: none !important;
+  grid-template-rows: none !important;
 }
 
-.content .image-list-container .image-preview-wrap,
-.content .image-list-container .image-preview-button {
-  width: 100% !important;
+/* Single-image shell: shrink-wrap to the capped portrait and center. */
+.content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) {
+  display: block !important;
+  width: fit-content !important;
   max-width: 100% !important;
-  margin: 0;
+  margin-block: 1rem;
+  margin-inline: auto !important;
+  grid-template-columns: none !important;
+  grid-template-rows: none !important;
 }
 
-.content .image-list-container img {
-  width: 100% !important;
+/* Multi items only — lower height cap, half-column max, no auto margins. */
+.content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-button,
+.content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-wrap {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: min(100%, calc((100% - 0.75rem) / 2)) !important;
+  max-height: var(--aber-media-list-max-height) !important;
+  margin: 0 !important;
+}
+
+.content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-button img,
+.content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-wrap img,
+.content
+  .image-list-container:has(.image-preview-button ~ .image-preview-button)
+  img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img) {
+  display: block !important;
+  width: auto !important;
   max-width: 100% !important;
-  max-height: calc(100vh - 260px) !important;
-  margin: 0;
-  object-fit: contain;
-  object-position: top center;
+  height: auto !important;
+  max-height: var(--aber-media-list-max-height) !important;
+  margin: 0 auto !important;
 }
 
-@media (max-width: 560px) {
-  .content .image-preview-wrap,
-  .content .image-preview-button {
-    width: 100% !important;
+/* Odd multi first item (3/5/...): full row, taller single cap, centered. */
+.content
+  .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+  > .image-preview-button:first-child,
+.content
+  .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+  > .image-preview-wrap:first-child {
+  flex: 0 1 auto;
+  max-width: 100% !important;
+  max-height: var(--aber-media-max-height) !important;
+  grid-column: auto !important;
+  margin-inline: auto !important;
+}
+
+.content
+  .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+  > .image-preview-button:first-child
+  img,
+.content
+  .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+  > .image-preview-wrap:first-child
+  img {
+  max-height: var(--aber-media-max-height) !important;
+}
+
+/* Single list item: full single-image cap + center. */
+.content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) > .image-preview-button,
+.content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) > .image-preview-wrap {
+  max-width: 100% !important;
+  max-height: var(--aber-media-max-height) !important;
+  margin-inline: auto !important;
+  grid-column: auto !important;
+}
+
+.content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) > .image-preview-button img,
+.content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) > .image-preview-wrap img,
+.content
+  .image-list-container:not(:has(.image-preview-button ~ .image-preview-button))
+  img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img) {
+  max-height: var(--aber-media-max-height) !important;
+  margin: 0 auto !important;
+}
+
+.content > iframe,
+.content video:not(.tgme_widget_message_video):not(.tgme_widget_message_roundvideo) {
+  display: block;
+  max-width: 100%;
+  max-height: var(--aber-media-max-height);
+  margin: 1rem auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-media);
+  background: var(--surface-color);
+}
+
+@media (max-width: 37.5rem) {
+  :root {
+    --body-padding-inline: 16px;
+    --aber-media-max-height: min(68svh, 32rem, calc(100svh - 10rem));
+    --aber-media-list-max-height: min(48svh, 22rem, calc(100svh - 14rem));
   }
 
-  .content .image-list-container img {
-    max-height: calc(100vh - 180px) !important;
+  .site-header {
+    padding-top: 1.75rem;
+    padding-bottom: 1.15rem;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+  .site-header > .title > h1 {
+    font-size: 1.35rem;
+  }
+
+  #main-content {
+    padding-top: 1.5rem;
+  }
+
+  .post-entry {
+    padding: 1.25rem 0 1.45rem;
+  }
+
+  /* Two-up on small screens, still height-capped with auto width. */
+  .content .image-list-container:has(.image-preview-button ~ .image-preview-button) {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    justify-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) {
+    display: block !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin-inline: auto !important;
+  }
+
+  .content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-button,
+  .content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-wrap {
+    max-width: 100% !important;
+    max-height: var(--aber-media-list-max-height) !important;
+    margin: 0 !important;
+  }
+
+  .content
+    .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+    > .image-preview-button:first-child,
+  .content
+    .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+    > .image-preview-wrap:first-child {
+    grid-column: 1 / -1;
+    max-width: 100% !important;
+    max-height: var(--aber-media-max-height) !important;
+    margin-inline: auto !important;
+  }
+
+  .content
+    .image-list-container:has(.image-preview-button ~ .image-preview-button)
+    img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img),
+  .content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-button img,
+  .content .image-list-container:has(.image-preview-button ~ .image-preview-button) > .image-preview-wrap img {
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: var(--aber-media-list-max-height) !important;
+    margin: 0 auto !important;
+    object-fit: contain;
+  }
+
+  .content
+    .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+    > .image-preview-button:first-child
+    img,
+  .content
+    .image-list-container.image-list-odd:has(.image-preview-button ~ .image-preview-button)
+    > .image-preview-wrap:first-child
+    img,
+  .content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) > .image-preview-button img,
+  .content .image-list-container:not(:has(.image-preview-button ~ .image-preview-button)) > .image-preview-wrap img,
+  .content
+    .image-list-container:not(:has(.image-preview-button ~ .image-preview-button))
+    img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img) {
+    max-height: var(--aber-media-max-height) !important;
   }
 }

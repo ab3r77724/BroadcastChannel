@@ -55,6 +55,16 @@ const socialLinks = buildSocialLinks({
         </a>
       ))
     }
+    <button
+      type="button"
+      class="theme-toggle"
+      data-theme-toggle
+      aria-label="Toggle color theme"
+      title="Toggle color theme"
+    >
+      <Icon class="theme-toggle-icon theme-toggle-icon-sun" name="ri:sun-line" aria-hidden="true" />
+      <Icon class="theme-toggle-icon theme-toggle-icon-moon" name="ri:moon-line" aria-hidden="true" />
+    </button>
   </div>
   {
     !hideDescription && descriptionHtml.length > 0 && (
@@ -63,3 +73,94 @@ const socialLinks = buildSocialLinks({
   }
   <slot />
 </header>
+
+<script is:inline>
+  ;(() => {
+    const storageKey = 'bc-theme'
+    const root = document.documentElement
+    const meta = document.querySelector('meta[name="theme-color"]')
+    const lightColor = '#ffffff'
+    const darkColor = '#01242e'
+
+    function readStoredTheme() {
+      if (!('localStorage' in window)) {
+        return null
+      }
+
+      const theme = window.localStorage.getItem(storageKey)
+      return theme === 'light' || theme === 'dark' ? theme : null
+    }
+
+    function writeStoredTheme(theme) {
+      if (!('localStorage' in window)) {
+        return
+      }
+
+      window.localStorage.setItem(storageKey, theme)
+    }
+
+    function systemTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+
+    function currentTheme() {
+      const attr = root.getAttribute('data-theme')
+      if (attr === 'light' || attr === 'dark') {
+        return attr
+      }
+      return systemTheme()
+    }
+
+    function syncToggle(theme) {
+      document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+        const next = theme === 'dark' ? 'light' : 'dark'
+        button.setAttribute('aria-label', `Switch to ${next} theme`)
+        button.setAttribute('title', `Switch to ${next} theme`)
+        button.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false')
+      })
+    }
+
+    function applyTheme(theme, persist) {
+      if (theme !== 'light' && theme !== 'dark') {
+        return
+      }
+
+      root.setAttribute('data-theme', theme)
+      if (meta) {
+        meta.setAttribute('content', theme === 'dark' ? darkColor : lightColor)
+      }
+      if (persist) {
+        writeStoredTheme(theme)
+      }
+      syncToggle(theme)
+    }
+
+    applyTheme(currentTheme(), false)
+
+    document.addEventListener('click', (event) => {
+      const target = event.target
+      const button = target instanceof Element ? target.closest('[data-theme-toggle]') : null
+      if (!button) {
+        return
+      }
+      applyTheme(currentTheme() === 'dark' ? 'light' : 'dark', true)
+    })
+
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const onChange = () => {
+      if (readStoredTheme()) {
+        return
+      }
+      applyTheme(systemTheme(), false)
+    }
+
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', onChange)
+      return
+    }
+
+    if (typeof media.addListener === 'function') {
+      media.addListener(onChange)
+    }
+  })()
+</script>

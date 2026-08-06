@@ -46,6 +46,24 @@ const skipLinkText = 'Skip to main content'
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
+    <script is:inline>
+      ;(() => {
+        if (!('localStorage' in window)) {
+          return
+        }
+
+        const theme = window.localStorage.getItem('bc-theme')
+        if (theme !== 'light' && theme !== 'dark') {
+          return
+        }
+
+        document.documentElement.setAttribute('data-theme', theme)
+        const meta = document.querySelector('meta[name="theme-color"]')
+        if (meta) {
+          meta.setAttribute('content', theme === 'dark' ? '#01242e' : '#ffffff')
+        }
+      })()
+    </script>
     <link rel="alternate" type="application/rss+xml" title={`${RSS_PREFIX}${channel?.title}`} href={RSS_URL} />
     <SEO
       titleTemplate={hasCustomTitle ? `%s | ${siteTitle}` : undefined}

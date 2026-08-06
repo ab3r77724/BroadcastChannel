@@ -55,8 +55,28 @@
     --icon-secondary-filter: grayscale(1) opacity(0.5);
   }
 
+  /* Manual theme wins over system preference when data-theme is set. */
+  :root[data-theme='light'] {
+    color-scheme: light;
+  }
+
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --background-color: #01242e;
+    --heading-color: #eee;
+    --text-color: #ddd;
+    --link-color: #8cc2dd;
+    --visited-color: #8b6fcb;
+    --code-background-color: #000;
+    --code-color: #ddd;
+    --blockquote-color: #ccc;
+    --reaction-paid-color: #f3cc65;
+    --reaction-paid-border-color: color-mix(in srgb, var(--reaction-paid-color) 52%, transparent);
+    --reaction-paid-background-color: color-mix(in srgb, var(--reaction-paid-color) 14%, var(--background-color));
+  }
+
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme='light']) {
       --background-color: #01242e;
       --heading-color: #eee;
       --text-color: #ddd;

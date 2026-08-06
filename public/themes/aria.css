@@ -37,8 +37,46 @@
   --back-to-top-offset: max(1rem, env(safe-area-inset-right));
 }
 
+/* Manual theme wins over system preference when data-theme is set. */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --background-color: #0a0a0a;
+  --heading-color: #f5f5f5;
+  --text-color: #a3a3a3;
+  --link-color: #f5f5f5;
+  --visited-color: #cdb9d5;
+  --code-background-color: #171717;
+  --code-color: #f5f5f5;
+  --blockquote-color: #a3a3a3;
+  --accent-color: #f5f5f5;
+  --border-color: #404040;
+  --control-border: #525252;
+  --focus-color: #8ec5ff;
+  --link-hover-color: #fff;
+  --muted-color: #a3a3a3;
+  --surface-color: #0a0a0a;
+  --grid-panel-color: #262626;
+  --grid-color: #404040;
+  --grid-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Crect width='44' height='44' fill='%230a0a0a'/%3E%3Cpath d='M44 0H0M0 0v44' fill='none' stroke='%23404040' stroke-width='1' stroke-dasharray='3.5 5.5'/%3E%3C/svg%3E");
+  --code-muted-color: #a3a3a3;
+  --code-accent-color: #93c5fd;
+  --code-alt-accent-color: #d8b4fe;
+  --reaction-paid-color: #ffdd75;
+  --reaction-paid-border-color: #ad8d24;
+  --reaction-paid-background-color: #2a2412;
+}
+
+:root[data-theme='dark'] #back-to-top img {
+  filter: invert(1);
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
     --background-color: #0a0a0a;
     --heading-color: #f5f5f5;
     --text-color: #a3a3a3;
@@ -65,7 +103,7 @@
     --reaction-paid-background-color: #2a2412;
   }
 
-  #back-to-top img {
+  :root:not([data-theme='light']) #back-to-top img {
     filter: invert(1);
   }
 }
@@ -179,7 +217,8 @@ hr {
   gap: 0.2rem;
 }
 
-.social-links a {
+.social-links a,
+.social-links .theme-toggle {
   width: 2.25rem;
   height: 2.25rem;
   border: 1px dashed transparent;
@@ -192,7 +231,8 @@ hr {
   color: var(--muted-color);
 }
 
-.social-links a:hover {
+.social-links a:hover,
+.social-links .theme-toggle:hover {
   border-color: var(--border-color);
   background: var(--surface-color);
   color: var(--heading-color);

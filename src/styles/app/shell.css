@@ -74,7 +74,8 @@
     justify-self: end;
   }
 
-  .social-links a {
+  .social-links a,
+  .social-links .theme-toggle {
     display: inline-flex;
     width: 2rem;
     height: 2rem;
@@ -84,13 +85,49 @@
     text-decoration: none;
   }
 
-  .social-links a:hover {
+  .social-links a:hover,
+  .social-links .theme-toggle:hover {
     text-decoration: none;
+  }
+
+  .social-links .theme-toggle {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+  }
+
+  .social-links .theme-toggle:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
   }
 
   .social-links svg {
     width: 1em;
     height: 1em;
+  }
+
+  .theme-toggle-icon-moon {
+    display: none;
+  }
+
+  :root[data-theme='dark'] .theme-toggle-icon-sun {
+    display: none;
+  }
+
+  :root[data-theme='dark'] .theme-toggle-icon-moon {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .theme-toggle-icon-sun {
+      display: none;
+    }
+
+    :root:not([data-theme='light']) .theme-toggle-icon-moon {
+      display: block;
+    }
   }
 
   .channel-description {
