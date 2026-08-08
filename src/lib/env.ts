@@ -1,4 +1,5 @@
 import type { NavItem } from '../types'
+import { getEnv as getAstroRuntimeEnv } from 'astro/env/runtime'
 
 export type Env = Record<string, string | undefined>
 
@@ -12,7 +13,7 @@ function getProcessEnv(name: string): string | undefined {
  * Runtime envs must win over Vite's build-time import.meta.env values.
  */
 export function getEnv(env: Env | undefined, name: string): string | undefined {
-  return getProcessEnv(name) ?? env?.[name]
+  return getProcessEnv(name) ?? getAstroRuntimeEnv(name) ?? env?.[name]
 }
 
 export function getStaticProxy(env: Env): string {
