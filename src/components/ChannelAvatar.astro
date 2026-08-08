@@ -5,7 +5,8 @@ import { getStaticProxy } from '../lib/env'
 const { alt = '', channel, class: className, fetchpriority, height, loading = 'lazy', width } = Astro.props
 
 const staticProxy = getStaticProxy(import.meta.env)
-const src = channel?.avatar?.startsWith('http') ? staticProxy + channel.avatar : voidFile.src
+const avatarSrc = channel?.avatar
+const src = avatarSrc?.startsWith('http') ? staticProxy + avatarSrc : avatarSrc || voidFile.src
 ---
 
 <img

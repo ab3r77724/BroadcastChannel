@@ -10,6 +10,7 @@ describe('json feed builder', () => {
       description: 'Channel description',
       descriptionHTML: null,
       avatar: undefined,
+      pagination: true,
     }
     const posts: Post[] = [{
       id: '123',

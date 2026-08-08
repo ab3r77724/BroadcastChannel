@@ -17,6 +17,7 @@ export interface ReplyOptions {
 export interface MessageAssetOptions extends IndexedStaticProxyOptions {
   id?: string
   title?: string
+  botMedia?: Map<string, BotMediaRef>
 }
 
 export interface ExtractPostOptions {
@@ -25,6 +26,16 @@ export interface ExtractPostOptions {
   staticProxy: string
   index?: number
   reactionsEnabled?: boolean
+  botMedia?: Map<string, BotMediaRef>
+}
+
+export interface BotMediaRef {
+  fileId: string
+  width?: number
+  height?: number
+  kind?: 'photo' | 'video' | 'audio' | 'voice' | 'document'
+  mimeType?: string
+  fileName?: string
 }
 
 export interface LoadedChannelDocument {
@@ -33,4 +44,7 @@ export interface LoadedChannelDocument {
   telegramHost: string
   staticProxy: string
   reactionsEnabled?: boolean
+  access: ChannelAccess
 }
+
+export type ChannelAccess = 'public' | 'private' | 'unavailable'

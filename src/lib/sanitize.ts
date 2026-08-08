@@ -3,8 +3,9 @@ import sanitizeHtml from 'sanitize-html'
 const mediaTags = ['img', 'video', 'audio', 'source']
 const interactiveTags = ['button', 'input', 'label']
 const telegramTags = ['tg-spoiler']
+const formattingTags = ['u', 's']
 const contentSanitizeOptions = {
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat(mediaTags, interactiveTags, telegramTags),
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(mediaTags, interactiveTags, telegramTags, formattingTags),
   allowedAttributes: {
     ...sanitizeHtml.defaults.allowedAttributes,
     '*': [

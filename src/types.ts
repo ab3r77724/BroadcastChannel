@@ -24,6 +24,8 @@ export interface ChannelInfo {
   description: string
   descriptionHTML: string | null
   avatar: string | undefined
+  /** Web channel pagination is unavailable when posts come from Bot API updates. */
+  pagination: boolean
 }
 
 export interface SeoMeta {

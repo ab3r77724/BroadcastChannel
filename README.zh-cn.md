@@ -167,11 +167,29 @@ GOOGLE_SEARCH_SITE=memo.miantiao.me
 ## 高级（一般无需修改）
 TELEGRAM_HOST=telegram.dog
 STATIC_PROXY=
+# 可选的 Telegram Bot API 接入（推荐：原图 + 私有频道）
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_BOT_API_BASE=https://api.telegram.org
+TELEGRAM_BOT_CHAT_ID=
 # 需要时覆盖自动适配器检测。
 SERVER_ADAPTER=
 # 在默认白名单基础上追加代理目标；仅填写域名，以英文逗号分隔（不含协议、端口或路径）。
 TARGET_WHITELIST=a.com,b.com
 ```
+
+### 频道访问与 Telegram Bot API
+
+频道访问方式会自动识别：
+
+- **公开频道且未配置 `TELEGRAM_BOT_TOKEN`**：继续从公开的 `t.me` 预览页抓取，预览图上限约 800px。
+- **私有频道且未配置 `TELEGRAM_BOT_TOKEN`**：无法获取内容，站点会返回明确的 `ChannelAccessError`，提示配置 Bot。
+- **配置 `TELEGRAM_BOT_TOKEN`（公开或私有频道均可）**：需要把 Bot 加为频道管理员。帖子通过 Bot API 读取，媒体通过 `/api/bot-file` 以 Telegram 原始分辨率输出，不再用压缩后的网页预览图。公开频道仍保留完整网页历史，近期帖子只要 Bot 收到过，就会升级为 Bot 原始文件。
+
+注意事项：
+
+- Bot API 只能拿到 Bot 入群之后收到的更新，所以私有频道只能展示加入后的帖子，拿不到历史归档。
+- 当 Bot 只管理一个频道时，`TELEGRAM_BOT_CHAT_ID` 可以留空自动识别；一个 Bot 管理多个频道时请显式配置。
+- `TELEGRAM_BOT_API_BASE` 仅在需要 Bot API 网关/镜像时修改。
 
 ## 🎨 主题
 
@@ -200,7 +218,7 @@ HN News、TG Channel 和 ZAE 是固定浅色主题。不要直接加载 `/themes
 ## 🙋🏻 常问问题
 
 1. 为什么部署后内容为空？
-   - 频道必须是**公开**的
+   - 频道必须是**公开**的，除非配置了 `TELEGRAM_BOT_TOKEN`
    - 频道用户名是**字符串**，不是数字
    - 关闭频道 **Restricting Saving Content** 设置
    - 修改环境变量后需要**重新部署**

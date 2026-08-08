@@ -168,11 +168,38 @@ GOOGLE_SEARCH_SITE=memo.miantiao.me
 ## Advanced (usually leave as-is)
 TELEGRAM_HOST=telegram.dog
 STATIC_PROXY=
+# Optional Telegram Bot API access (recommended for full-resolution media and private channels)
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_BOT_API_BASE=https://api.telegram.org
+TELEGRAM_BOT_CHAT_ID=
 # Override automatic adapter detection when needed.
 SERVER_ADAPTER=
 # Append hostname-only proxy targets to the defaults, separated by commas (no protocol, port, or path).
 TARGET_WHITELIST=a.com,b.com
 ```
+
+### Channel access and the Telegram Bot API
+
+Channel access is detected automatically:
+
+- **Public channel without `TELEGRAM_BOT_TOKEN`**: posts are fetched from the
+  public `t.me` preview as before. Preview images are capped at about 800px.
+- **Private channel without `TELEGRAM_BOT_TOKEN`**: content cannot be fetched.
+  The site returns a clear `ChannelAccessError` and asks you to configure a bot.
+- **Public or private channel with `TELEGRAM_BOT_TOKEN`**: add the bot to the
+  channel as an admin. Posts are read through the Bot API, and media is served
+  at full Telegram resolution via `/api/bot-file` instead of the compressed web
+  preview. For public channels, the full web history is still available; recent
+  posts are upgraded to bot-original files whenever the bot has seen them.
+
+Notes:
+
+- The Bot API only exposes updates received after the bot joined, so a private
+  channel shows posts from that point forward, not its full archive.
+- If the bot manages exactly one channel, `TELEGRAM_BOT_CHAT_ID` can be left
+  empty. Set it when a bot handles multiple channels so the correct channel is
+  matched.
+- `TELEGRAM_BOT_API_BASE` only needs changing for a Bot API gateway/mirror.
 
 ## 🎨 Themes
 
@@ -201,7 +228,7 @@ Full configuration, light/dark behavior, platform dashboard values, custom CSS, 
 ## 🙋🏻 FAQs
 
 1. Why is the content empty after deployment?
-   - The channel must be **public**
+   - The channel must be **public** unless `TELEGRAM_BOT_TOKEN` is configured
    - The channel username is a **string**, not a number
    - Turn off **Restricting Saving Content** in the channel settings
    - Redeploy after changing environment variables

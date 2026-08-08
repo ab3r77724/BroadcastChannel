@@ -1,3 +1,4 @@
+export { getDocuments } from './media/documents'
 export { getImages } from './media/images'
 export { getLinkPreview } from './media/link-preview'
 export { getAudio, getVideo } from './media/playback'

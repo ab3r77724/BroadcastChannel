@@ -11,7 +11,7 @@ export const GET: APIRoute = async (Astro) => {
   let count = Number(posts[0]?.id)
 
   const pages: number[] = []
-  if (Number.isFinite(count) && count > 0) {
+  if (channel.pagination !== false && Number.isFinite(count) && count > 0) {
     pages.push(count)
     while (count > pageSize) {
       count -= pageSize

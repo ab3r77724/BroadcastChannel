@@ -1,9 +1,9 @@
 import type { AnyNode, CheerioAPI } from 'cheerio'
 import type { Post, Reaction } from '../../types'
-import type { ExtractPostOptions, MessageSelection } from './types'
+import type { BotMediaRef, ExtractPostOptions, MessageSelection } from './types'
 import { modifyHTMLContent } from './content'
 import { getCustomEmojiImage, normalizeEmoji } from './emoji'
-import { getAudio, getForwardedFrom, getImages, getImageStickers, getLinkPreview, getReply, getTgsStickers, getVideo, getVideoStickers } from './media'
+import { getAudio, getDocuments, getForwardedFrom, getImages, getImageStickers, getLinkPreview, getReply, getTgsStickers, getVideo, getVideoStickers } from './media'
 import { renderRawContent } from './renderers/raw'
 import { normalizeUrlAttributes } from './url'
 
@@ -85,7 +85,7 @@ function rewriteTagLinksAndCollectTags($: CheerioAPI, content: MessageSelection)
  * 正文里的 hashtag 和底部 post-tags 叠两层太憨批。
  * 只剥掉开头/结尾的独立 tag 簇，句子中间当正文的 hashtag 留着。
  */
-function stripDetachedTagClusters($: CheerioAPI, content: MessageSelection): void {
+export function stripDetachedTagClusters($: CheerioAPI, content: MessageSelection): void {
   while (true) {
     const nodes = content.contents().toArray()
     if (!nodes.length) {
@@ -173,20 +173,22 @@ function renderPostContent(
     index: number
     id: string
     title: string
+    botMedia?: Map<string, BotMediaRef>
   },
 ): string {
-  const { channel, staticProxy, index, id, title } = options
+  const { channel, staticProxy, index, id, title, botMedia } = options
 
   return [
     getForwardedFrom($, message),
     getReply($, message, { channel }),
-    getImages($, message, { staticProxy, id, index, title }),
-    getVideo($, message, { staticProxy, index }),
-    getAudio($, message, { staticProxy }),
+    getImages($, message, { staticProxy, id, index, title, botMedia }),
+    getVideo($, message, { staticProxy, id, index, botMedia }),
+    getAudio($, message, { staticProxy, id, botMedia }),
     content.html(),
     getImageStickers($, message, { staticProxy, index }),
     getTgsStickers($, message, { staticProxy, index }),
     getVideoStickers($, message, { staticProxy, index }),
+    getDocuments($, message, { staticProxy, id, index, title, botMedia }),
     ...renderRawContent($, message, { staticProxy }),
     getLinkPreview($, message, { staticProxy, index }),
   ]
@@ -241,7 +243,7 @@ function getReactions($: CheerioAPI, message: MessageSelection, telegramHost: st
 }
 
 export async function extractPost($: CheerioAPI, item: AnyNode | null, options: ExtractPostOptions): Promise<Post> {
-  const { channel, telegramHost, staticProxy, index = 0, reactionsEnabled } = options
+  const { channel, telegramHost, staticProxy, index = 0, reactionsEnabled, botMedia } = options
   const message = item ? $(item).find('.tgme_widget_message') : $('.tgme_widget_message')
   normalizeUrlAttributes($, message)
   const hasReplyText = message.find('.js-message_reply_text').length > 0
@@ -257,7 +259,7 @@ export async function extractPost($: CheerioAPI, item: AnyNode | null, options: 
   stripDetachedTagClusters($, content)
   const contentText = content.text()
   const title = contentText.match(TITLE_PREVIEW_REGEX)?.[0] ?? contentText
-  const contentHtml = renderPostContent($, message, content, { channel, staticProxy, index, id, title })
+  const contentHtml = renderPostContent($, message, content, { channel, staticProxy, index, id, title, botMedia })
 
   return {
     id,

@@ -1,6 +1,6 @@
 import type { NavItem } from '../types'
 
-type Env = Record<string, string | undefined>
+export type Env = Record<string, string | undefined>
 
 export const DEFAULT_TELEGRAM_HOST = 'telegram.me'
 
@@ -21,6 +21,18 @@ export function getStaticProxy(env: Env): string {
 
 export function getTelegramHost(env: Env): string {
   return getEnv(env, 'TELEGRAM_HOST') ?? DEFAULT_TELEGRAM_HOST
+}
+
+export function getTelegramBotToken(env: Env): string {
+  return getEnv(env, 'TELEGRAM_BOT_TOKEN') ?? ''
+}
+
+export function getTelegramBotApiBase(env: Env): string {
+  return getEnv(env, 'TELEGRAM_BOT_API_BASE') ?? 'https://api.telegram.org'
+}
+
+export function getTelegramBotChatId(env: Env): string {
+  return getEnv(env, 'TELEGRAM_BOT_CHAT_ID') ?? ''
 }
 
 export function getTargetWhitelist(env: Env | undefined): string[] {

@@ -1,5 +1,5 @@
 import type { GetChannelInfoParams } from '../../types'
-import type { LoadedChannelDocument } from './types'
+import type { ChannelAccess, LoadedChannelDocument } from './types'
 import * as cheerio from 'cheerio'
 import { defineCachedFunction } from 'ocache'
 import { $fetch } from 'ofetch'
@@ -64,6 +64,91 @@ const loadTelegramHtml = defineCachedFunction(fetchTelegramHtml, {
   }),
 })
 
+const PRIVATE_CHANNEL_MARKERS = [
+  'this channel is private',
+  'private channel',
+  'this channel can\'t be displayed',
+  'can only be viewed by',
+  'join to view',
+  'access is restricted',
+]
+
+const CONTACT_PAGE_MARKERS = [
+  'you can contact',
+  'right away',
+]
+
+const UNAVAILABLE_CHANNEL_MARKERS = [
+  'isn\'t available',
+  'not found',
+  'doesn\'t exist',
+  'no longer accessible',
+  'was deleted',
+  'page not found',
+  'is not available',
+]
+
+/**
+ * t.me/s/ pages encode accessibility through DOM shape rather than HTTP
+ * status. A public channel contains widget messages (or at least channel
+ * metadata), while private channels render a locked landing page and missing
+ * channels render an error page.
+ */
+export function detectChannelAccess(html: string): ChannelAccess {
+  const $ = cheerio.load(html, {}, false)
+
+  if ($('.tgme_widget_message').length > 0) {
+    return 'public'
+  }
+
+  // Fragment loading (cheerio.load(html, {}, false)) has no <body>, so read
+  // from the root to cover both full documents and test fixtures.
+  const text = $.root().text().toLowerCase()
+  if (PRIVATE_CHANNEL_MARKERS.some(marker => text.includes(marker))) {
+    return 'private'
+  }
+
+  if (UNAVAILABLE_CHANNEL_MARKERS.some(marker => text.includes(marker))) {
+    return 'unavailable'
+  }
+
+  // Private channels redirect /s/ to a "Contact @channel" landing page, which
+  // carries .tgme_page but no channel metadata. Treat it as private so the
+  // bot path can prove access instead of rendering an empty public feed.
+  if (CONTACT_PAGE_MARKERS.some(marker => text.includes(marker))) {
+    return 'private'
+  }
+
+  if ($('.tgme_channel_info').length > 0) {
+    return 'public'
+  }
+
+  // A bare .tgme_page landing page without channel metadata is a private or
+  // user landing page, not a public channel. Routing it through the bot path
+  // is safe: without a bot it fails with a clear ChannelAccessError.
+  if ($('.tgme_page').length > 0) {
+    return 'private'
+  }
+
+  return 'unavailable'
+}
+
+export class ChannelAccessError extends Error {
+  readonly code: Exclude<ChannelAccess, 'public'> | 'missing-bot'
+
+  constructor(code: Exclude<ChannelAccess, 'public'>, options: { hasBot?: boolean } = {}) {
+    const message = code === 'private'
+      ? (options.hasBot
+          ? 'This channel is private and no Telegram posts were received by the bot yet.'
+          : 'This channel is private. Configure TELEGRAM_BOT_TOKEN and add the bot to the channel as an admin.')
+      : 'This channel is unavailable or the Telegram channel name could not be found.'
+
+    super(message)
+    this.name = 'ChannelAccessError'
+    this.code = options.hasBot && code === 'private' ? 'missing-bot' : code
+  }
+}
+
 export async function loadChannelDocument(
   params: GetChannelInfoParams & { id?: string } = {},
 ): Promise<LoadedChannelDocument> {
@@ -88,5 +173,6 @@ export async function loadChannelDocument(
     telegramHost: host,
     staticProxy,
     reactionsEnabled,
+    access: detectChannelAccess(html),
   }
 }

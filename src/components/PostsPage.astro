@@ -27,8 +27,8 @@ const posts = channel.posts ?? []
 
 const beforeCursor = posts[posts.length - 1]?.id
 const afterCursor = posts[0]?.id
-const hasOlderPosts = showOlder && beforeCursor && Number(beforeCursor) > 1
-const hasNewerPosts = showNewer && afterCursor
+const hasOlderPosts = channel.pagination !== false && showOlder && beforeCursor && Number(beforeCursor) > 1
+const hasNewerPosts = channel.pagination !== false && showNewer && afterCursor
 ---
 
 <BaseLayout channel={channel} pageClass={pageClass} seo={pageSeo} pageType={pageType}>

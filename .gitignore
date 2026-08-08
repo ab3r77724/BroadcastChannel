@@ -31,6 +31,7 @@ pnpm-debug.log*
 .agents
 .claude
 .slim/deepwork/
+.playwright-mcp/
 
 # BEGIN oh-my-opencode-slim clonedeps
 .slim/clonedeps/repos/
